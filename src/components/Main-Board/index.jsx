@@ -31,7 +31,7 @@ function MainBoard () {
                 </div>
                 <div className='filter-input__container'>
                     <BsSearch className='filter-icon'></BsSearch>
-                    <input onChange={getInputValue} className="filter-task" id="filter" type="text" minLength={3} placeholder="Filter Tasks" />
+                    <input onChange={getInputValue} className="filter-task" id="filter" type="text" minLength={3} placeholder="Filter Tasks - min 3 letters" />
                 </div>
             </section>
             <section className='card-boards__container'>
