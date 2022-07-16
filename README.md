@@ -66,7 +66,7 @@ export default FilteredTasksProvider;
 
 The application has been deployed using GitHub Pages on the following url:
 
-- https://marcogarciakoch.github.io/speech-to-text-app/
+- https://marcogarciakoch.github.io/kanban-board/
 
 
 # Local setup
