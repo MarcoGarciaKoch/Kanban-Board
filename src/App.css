@@ -1,0 +1,23 @@
+.app {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
+}
+
+
+@media screen and (max-width: 800px) {
+    
+    .app {
+        overflow: visible;
+        height: 100%;
+    }
+}
+
+@media screen and (max-width: 625px) {
+    
+    .app {
+        overflow: visible;
+        height: 100%;
+    }
+}
