@@ -1,70 +1,98 @@
-# Getting Started with Create React App
+# TODO App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project consist of the creation of a TODO App application.
+ 
 
-## Available Scripts
+This was one of the first projects with `React` I did during my Full Stack Development Bootcamp and the technological stack used was:
 
-In the project directory, you can run:
+- **React 18.1.0**
+- **CSS3**
 
-### `npm start`
+The application has the following main features:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- The user can create a new task.
+- The user can move the tasks between the different sections (ToDo, In Progress or Done). 
+- The user can filter tasks by typing a minimum of 3 letters.
+- The user can delete any task one by one, or all at once in the Done section. 
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
 
-### `npm test`
+# Repository Structure
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+It only consists on the app client side.
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+# Front End
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+One of the remarkable implementations is the use of various Context hook to make data available for the different components.
+An example of it is the `FilteredTasks Context` hook as it follows:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```js
+// filteredTasks.context.js
+import { createContext} from 'react';
 
-### `npm run eject`
+    
+export const FilteredTasksContext = createContext([]);
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+//filteredTasks.provider.jsx
+import {FilteredTasksContext} from './filteredTasks.context';
+import { useState, useEffect } from "react";
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+function FilteredTasksProvider({ children }) {
+  
+    const [filteredTaskList, updatedFilteredTaskList] = useState(() => {
+    const stored = JSON.parse(localStorage.getItem('tasks'));
+   
+    return stored ? stored : []
+  }); 
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+  useEffect(() => {
+    localStorage.setItem('tasks', JSON.stringify(filteredTaskList))
+  },[filteredTaskList])
 
-## Learn More
+  return (
+    <FilteredTasksContext.Provider value={[filteredTaskList, updatedFilteredTaskList]}>
+        {children}
+    </FilteredTasksContext.Provider>
+  );
+}
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+export default FilteredTasksProvider;
+```
 
-### Code Splitting
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+# Deployment
 
-### Analyzing the Bundle Size
+The application has been deployed using GitHub Pages on the following url:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+- https://marcogarciakoch.github.io/speech-to-text-app/
 
-### Making a Progressive Web App
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+# Local setup
 
-### Advanced Configuration
+Although it is deployed in GitHub Pages, it can be configured to run in a local environment.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+To do so, the following steps must be performed:
 
-### Deployment
+1. Clone the monorepo
+    > git clone https://github.com/MarcoGarciaKoch/kanban-board.git
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+2. On root folder run install
 
-### `npm run build` fails to minify
+    > npm i
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+3. Now you can start the app as it follows:
+
+    > npm start  (It will start the application)
+
+
+# Future improvements
+
+- Login and register using for example Firebase Auth
+- Create more than one list saving it on your private profile
+- Edit a task without the need of remove it
+- Drag & Drop tasks from one section to another using native JS events or react-draggable library 
+- Share a list using Web Share API
+- Speech a task using Web Speech API
+- Real time Collaboraton list using Socket IO
